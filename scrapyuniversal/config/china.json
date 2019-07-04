@@ -1,0 +1,76 @@
+
+{
+  "spider": "universal",
+  "website": "中华网科技",
+  "type": "新闻",
+  "index": "http://tech.china.com/",
+  "settings": {
+    "USER_AGENT": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:67.0) Gecko/20100101 Firefox/67.0"
+  },
+  "start_urls": {
+    "type": "static",
+    "value": [
+      "http://tech.china.com/articles/"
+    ]
+  },
+  "allowed_domains": [
+    "tech.china.com"
+  ],
+  "rules": "china",
+  "item": {
+    "class": "NewsItem",
+    "loader": "ChinaLoader",
+    "attrs": {
+      "title": [
+        {
+          "method": "xpath",
+          "args": [
+            "//h1[@id='chan_newsTitle']/text()"
+          ]
+        }
+      ],
+      "url": [
+        {
+          "method": "attr",
+          "args": [
+            "url"
+          ]
+        }
+      ],
+      "text": [
+        {
+          "method": "xpath",
+          "args": [
+            "//div[@id='chan_newsDetail']//text()"
+          ]
+        }
+      ],
+      "datetime": [
+        {
+          "method": "xpath",
+          "args": [
+            "//div[@id='chan_newsInfo']/text()"
+          ],
+          "re": "(\\d+-\\d+-\\d+\\s\\d+:\\d+:\\d+)"
+        }
+      ],
+      "source": [
+        {
+          "method": "xpath",
+          "args": [
+            "//div[@id='chan_newsInfo']/text()"
+          ],
+          "re": "来源：(.*)"
+        }
+      ],
+      "website": [
+        {
+          "method": "value",
+          "args": [
+            "中华网"
+          ]
+        }
+      ]
+    }
+  }
+}
